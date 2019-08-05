@@ -4,3 +4,39 @@
 <strong>Password</strong> :<br />
 <br />
 <strong>Keep me logged in </strong>
+<?php if(isset($_GET['msg'])){ if($_GET['msg'] == 3){ echo 'Session and cookie has been deleted'; } } ?>
+
+<?php
+
+session_start();
+
+rememberMe();
+
+if(isset($_POST['submit'])){ validateUsers(); }
+
+function validateUsers() {
+
+// get $result data, use CURL or Ajax or any other ways to validate the username and password // you also can do the matching username and password in database
+
+   if ($result['status'] == 'success') {//login success
+
+       $_SESSION["username"] = $_POST['username'];
+
+       header('Location: http://localhost/keeplogin/success.php?msg=1');
+
+       //Logged in using normal login
+
+       if(isset($_POST['rememberme'])){
+
+          onLogin($_POST['username']); } }
+
+       else {//login failed
+
+           echo "<div style='padding: 20px 0px;position:relative;top:20%;color:red;font-weight:bold;' > Login Failed </div>";
+
+      }
+
+   }
+
+?>
+</html>
